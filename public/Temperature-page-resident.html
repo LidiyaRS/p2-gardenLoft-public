@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>loft lights carousel</title>
+    <link rel="stylesheet" href="main-style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+  </head>
+  <script src="main-script.js"></script>
+  <body>
+    <div class="full-body">
+      <div class="resident-top-bar">
+        <a href="Carousel-page-resident.html">
+          <button class="R-garden-loft">
+            <img src="images/My loft.png" alt="" />
+          </button>
+        </a>
+        <a href="main-carousel.html">
+          <button class="R-Controls">
+            <img src="images/yellow-control-button.png" alt="" />
+          </button>
+        </a>
+
+        <a href="https://www.netflix.com/ca/">
+          <button class="R-watch-tv">
+            <img src="images/tv-button.png" alt="" />
+          </button>
+        </a>
+
+        <a href="Schedule1.html">
+          <button class="R-schedule">
+            <img src="images/Schedule-button.png" alt="" />
+          </button>
+        </a>
+        <a href="contact.html">
+          <button class="R-contacts">
+            <img src="images/contacts-button.png" alt="" />
+          </button>
+        </a>
+
+        <button class="R-support-button" onclick="emergencyCall()">
+          <img src="images/support-button.png" alt="" />
+        </button>
+        <a href="profile_res.html">
+          <button class="R-picture-button">
+            <img src="images/picture-button.png" alt="" />
+          </button>
+        </a>
+      </div>
+
+      <!-- <div class="go-back">
+          <button id="go-back">
+                  <img class="back-arrow" src="images/ri_arrow-go-back-fill.png" alt=" go back"/>
+          </button>
+        </div>  -->
+      <div class="main-container1">
+        <div id="temp-div">
+          <div class="circle-temp">
+            <img src="images/Group 118.png" />
+          </div>
+
+          <div id="Current-temperature">Loading...</div>
+        </div>
+
+        <div class="container">
+          <div class="thermostat"></div>
+          <button class="decrease-btn" onclick="changeTemp(-1)">
+            <img id="plus" src="images/Vector.png" alt=" go back" />
+          </button>
+
+          <div class="temperature" id="tempDisplay">22</div>
+
+          <button class="increase-btn" onclick="changeTemp(1)">
+            <img id="minus" src="images/Vector (1).png" alt=" go back" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tempDisplay = document.getElementById("Current-temperature");
+      const ws = new WebSocket("ws://localhost:4000/");
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const temperature = data.currentRoomtemperature;
+        tempDisplay.innerText = temperature + " ℃";
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket Connection closed");
+      };
+
+      let count = parseInt(document.getElementById("tempDisplay").innerText);
+
+      function changeTemp(num) {
+        count += num;
+        if (count > 30) {
+          count = 30;
+        } else if (count < 17) {
+          count = 17;
+        }
+        document.getElementById("tempDisplay").innerText = count;
+
+        // Send the updated temperature to the server using HTTP
+        fetch("/setTemp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ number: count }),
+        });
+      }
+      window.onload = () => {
+        fetch("/setTemp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ number: count }),
+        });
+      };
+      function emergencyCall() {
+        fetch("/emergency-call", {
+          method: "POST",
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((err) => console.log("error: ", err));
+      }
+    </script>
+  </body>
+</html>
