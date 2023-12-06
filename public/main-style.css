@@ -1084,6 +1084,18 @@ justify-content: center;
     width: 40dvh;
     
   }
+
+  .support-msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25vh;
+  }
+
+  .support-header{
+    font-size: 3vw;
+    color: white;
+  }
  
   
  

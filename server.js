@@ -7,7 +7,7 @@ const { urgentCall, urgentMessage, emergencyCall } = require("./call-sms.js");
 
 const app = express();
 const port = 4000;
-const raspberryPiIpAddress = "http://192.168.1.93:3000";
+const raspberryPiIpAddress = "http://10.44.22.15:3000";
 // Enable WebSocket support in Express
 const { getWss, applyTo } = expressWs(app);
 
@@ -61,6 +61,8 @@ app.ws("/", (ws, req) => {
   let fallDetected = false;
   parser.on("data", processData);
   let currentRoomtemperature;
+  let heaterState = false;
+  let coolerState = false;
   function processData(data) {
     if (data.includes("Fall")) {
       fallDetected = true;
@@ -74,21 +76,30 @@ app.ws("/", (ws, req) => {
       console.log("Urgent call to supporter!");
       //call urgentCall function
     }
-    ws.send(JSON.stringify({ currentRoomtemperature }));
+    ws.send(
+      JSON.stringify({ currentRoomtemperature, heaterState, coolerState })
+    );
     console.log("Current Room Temperature: ", currentRoomtemperature);
+
     console.log("The new set temperature", newTempSetting);
     if (newTempSetting > currentRoomtemperature) {
       console.log("Time to turn on heater!");
       heaterOn();
+      heaterState = true;
       coolerOff();
+      coolerState = false;
     } else if (newTempSetting < currentRoomtemperature) {
       console.log("Time to turn off heater! Maybe turn on cooler?!");
       heaterOff();
+      heaterState = false;
       coolerOn();
+      coolerState = true;
     } else {
       console.log("It's pleasant temperature, no heater no cooler!");
       heaterOff();
+      heaterState = false;
       coolerOff();
+      coolerState = false;
     }
   }
 });
@@ -184,7 +195,7 @@ app.post("/turnOffR4", (req, res) => {
 });
 app.post("/emergency-call", (req, res) => {
   console.log("Order for call recieved!");
-  //   emergencyCall();
+  emergencyCall();
   res.end("emergency call request recieved!");
 });
 

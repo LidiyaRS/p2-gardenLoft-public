@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Entertainment</title>
     <link rel="stylesheet" href="main-style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,24 +11,27 @@
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
     />
-    <script src="main-script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
   </head>
-
+  <script src="main-script.js"></script>
   <body>
     <div class="full-body">
       <div class="resident-top-bar">
-        <button class="R-garden-loft">
-          <img src="images/My loft yellow.png" alt="" />
-        </button>
-
+        <a href="Carousel-page-resident.html">
+          <button class="R-garden-loft">
+            <img src="images/My loft.png" alt="" />
+          </button>
+        </a>
         <a href="main-carousel.html">
           <button class="R-Controls">
             <img src="images/control-button.png" alt="" />
           </button>
         </a>
+
         <a href="entertainment.html">
           <button class="R-watch-tv">
-            <img src="images/tv-button.png" alt="" />
+            <img src="images/yellowTvButton.png" alt="" />
           </button>
         </a>
         <a href="Schedule1.html">
@@ -36,7 +39,7 @@
             <img src="images/Schedule-button.png" alt="" />
           </button>
         </a>
-        <a href="contact.html">
+        <a href="">
           <button class="R-contacts">
             <img src="images/contacts-button.png" alt="" />
           </button>
@@ -57,18 +60,8 @@
           </button>
         </a>
       </div>
-
-      <div id="screensaver-container">
-        <div class="screensaver">
-          <img class="fade" src="images/family pic1.png" alt="Image 1" />
-          <img class="fade" src="images/family pic2.png" alt="Image 2" />
-          <img class="fade" src="images/family pic3.png" alt="Image 3" />
-          <img class="fade" src="images/family pic4.png" alt="Image 3" />
-          <img class="fade" src="images/family pic5.png" alt="Image 3" />
-          <img class="fade" src="images/family pic6.png" alt="Image 3" />
-        </div>
-      </div>
     </div>
+
     <script>
       function emergencyCall() {
         fetch("/emergency-call", {

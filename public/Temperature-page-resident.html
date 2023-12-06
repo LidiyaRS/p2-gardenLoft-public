@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>loft lights carousel</title>
+    <title>Temperature</title>
     <link rel="stylesheet" href="main-style.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,7 +30,7 @@
           </button>
         </a>
 
-        <a href="https://www.netflix.com/ca/">
+        <a href="entertainment.html">
           <button class="R-watch-tv">
             <img src="images/tv-button.png" alt="" />
           </button>
@@ -47,9 +47,15 @@
           </button>
         </a>
 
-        <button class="R-support-button" onclick="emergencyCall()">
-          <img src="images/support-button.png" alt="" />
-        </button>
+        <a href="support.html">
+          <button
+            class="R-support-button"
+            id="call-button"
+            onclick="emergencyCall()"
+          >
+            <img src="images/support-button.png" alt="" />
+          </button>
+        </a>
         <a href="profile_res.html">
           <button class="R-picture-button">
             <img src="images/picture-button.png" alt="" />
@@ -57,11 +63,6 @@
         </a>
       </div>
 
-      <!-- <div class="go-back">
-          <button id="go-back">
-                  <img class="back-arrow" src="images/ri_arrow-go-back-fill.png" alt=" go back"/>
-          </button>
-        </div>  -->
       <div class="main-container1">
         <div id="temp-div">
           <div class="circle-temp">
@@ -69,6 +70,18 @@
           </div>
 
           <div id="Current-temperature">Loading...</div>
+          <div style="display: flex; position: absolute" id="heaterSymbol">
+            <img
+              src="images/sun_bgrm.gif"
+              style="width: 100px; margin-left: -260px"
+            />
+          </div>
+          <div style="display: flex; position: absolute" id="coolerSymbol">
+            <img
+              src="images/flake_bgrm.gif"
+              style="width: 100px; margin-left: -260px"
+            />
+          </div>
         </div>
 
         <div class="container">
@@ -94,6 +107,18 @@
         const data = JSON.parse(event.data);
         const temperature = data.currentRoomtemperature;
         tempDisplay.innerText = temperature + " ℃";
+        const heaterState = data.heaterState;
+        if (heaterState) {
+          document.getElementById("heaterSymbol").style = "display: flex";
+        } else {
+          document.getElementById("heaterSymbol").style = "display: none";
+        }
+        const coolerState = data.coolerState;
+        if (coolerState) {
+          document.getElementById("coolerSymbol").style = "display: flex";
+        } else {
+          document.getElementById("coolerSymbol").style = "display: none";
+        }
       };
 
       ws.onclose = () => {
