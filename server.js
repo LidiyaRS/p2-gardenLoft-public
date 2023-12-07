@@ -111,6 +111,7 @@ app.ws("/", (ws, req) => {
       urgentMessage(
         "Hello, the temperture at resident room is not normal. Please take necessary actions."
       );
+
       msgflag = true;
     } else if (currentRoomtemperature >= 17 && currentRoomtemperature <= 30) {
       msgflag = false;
