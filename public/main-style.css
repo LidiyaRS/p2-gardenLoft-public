@@ -978,15 +978,7 @@ justify-content: center;
    }
 
 
-/* door lock page */
-   #door_locked_image {
-    /* display: none; */
-  } 
 
-
-  .lock img{
-      /* height: 14dvh; */
-  }
   
   .lock{
     display: flex;
@@ -1097,5 +1089,11 @@ justify-content: center;
     color: white;
   }
  
+  .contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1vw;
+  }
   
  

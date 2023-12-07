@@ -7,7 +7,8 @@ const { urgentCall, urgentMessage, emergencyCall } = require("./call-sms.js");
 
 const app = express();
 const port = 4000;
-const raspberryPiIpAddress = "http://10.44.22.15:3000";
+// const raspberryPiIpAddress = "http://10.44.22.15:3000";
+const raspberryPiIpAddress = "http://192.168.1.93:3000";
 // Enable WebSocket support in Express
 const { getWss, applyTo } = expressWs(app);
 
@@ -63,6 +64,7 @@ app.ws("/", (ws, req) => {
   let currentRoomtemperature;
   let heaterState = false;
   let coolerState = false;
+  let msgflag = false;
   function processData(data) {
     if (data.includes("Fall")) {
       fallDetected = true;
@@ -100,6 +102,18 @@ app.ws("/", (ws, req) => {
       heaterState = false;
       coolerOff();
       coolerState = false;
+    }
+
+    if (
+      (currentRoomtemperature > 30 || currentRoomtemperature < 17) &&
+      !msgflag
+    ) {
+      urgentMessage(
+        "Hello, the temperture at resident room is not normal. Please take necessary actions."
+      );
+      msgflag = true;
+    } else if (currentRoomtemperature >= 17 && currentRoomtemperature <= 30) {
+      msgflag = false;
     }
   }
 });

@@ -78,10 +78,18 @@
           </a>  -->
 
             <div class="washroom-light">
-              <h3 class="light-text">Washroom Light</h3>
+              <h3 class="light-text">Washroom</h3>
               <div id="circle1">
-                <img id="light_on_image" src="images/Light_on.png" />
-                <img id="light_off_image" src="images/light_off.png" />
+                <img
+                  id="light_on_image"
+                  src="images/Light_on.png"
+                  style="display: none"
+                />
+                <img
+                  id="light_off_image"
+                  src="images/light_off.png"
+                  style="display: block"
+                />
               </div>
 
               <div id="toggle-div">
@@ -100,7 +108,7 @@
 
           <div class="slide active">
             <div class="main-light">
-              <h3 class="light-text">Main Light</h3>
+              <h3 class="light-text">Living Room</h3>
               <div id="circle1">
                 <img id="light_on_image" src="images/Light_on.png" />
                 <img id="light_off_image" src="images/light_off.png" />
@@ -111,7 +119,7 @@
                   <input
                     type="checkbox"
                     class="imageToggle"
-                    id="imageToggle2"
+                    id="imageToggle1"
                   />
                   <span class="slider"></span>
                   <span class="labels" data-on="ON" data-off="OFF"></span>
@@ -128,7 +136,7 @@
 
           <div class="slide next-2">
             <div class="kitchen-light">
-              <h3 class="light-text">Kitchen Light</h3>
+              <h3 class="light-text">Kitchen</h3>
               <div id="circle1">
                 <img id="light_on_image" src="images/Light_on.png" />
                 <img id="light_off_image" src="images/light_off.png" />
@@ -139,7 +147,7 @@
                   <input
                     type="checkbox"
                     class="imageToggle"
-                    id="imageToggle3"
+                    id="imageToggle1"
                   />
                   <span class="slider"></span>
                   <span class="labels" data-on="ON" data-off="OFF"></span>
@@ -159,22 +167,20 @@
 
         const toggleInput = document.getElementById("imageToggle1");
 
-        toggleInput.addEventListener("change", function () {
-          // Check if the toggle is checked
-          if (toggleInput.checked) {
-            // console.log(toggleInput.checked)
-            // Change the image source when the toggle is checked
+        // Check if the toggle is checked
+        if (toggleInput.checked) {
+          // console.log(toggleInput.checked)
+          // Change the image source when the toggle is checked
 
-            lightsOn();
-            lightOnImage.style.display = "block";
-            lightOffImage.style.display = "none";
-          } else {
-            // Change the image source back to the default when the toggle is unchecked
-            lightOnImage.style.display = "none";
-            lightOffImage.style.display = "block";
-            lightsOff();
-          }
-        });
+          lightsOn();
+          lightOnImage.style.display = "block";
+          lightOffImage.style.display = "none";
+        } else {
+          // Change the image source back to the default when the toggle is unchecked
+          lightOnImage.style.display = "none";
+          lightOffImage.style.display = "block";
+          lightsOff();
+        }
       }
 
       const toggleInput = document.getElementById("imageToggle1");

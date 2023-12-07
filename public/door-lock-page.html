@@ -92,22 +92,27 @@
           const toggleInput = document.getElementById("imageDoorLockToggle");
           console.log(toggleInput);
 
-          toggleInput.addEventListener("change", function () {
-            // Check if the toggle is checked
-            if (toggleInput.checked) {
-              // console.log(toggleInput.checked)
-              // Change the image source when the toggle is checked
-              doorLock();
+          // Check if the toggle is checked
+          if (toggleInput.checked) {
+            // console.log(toggleInput.checked)
+            // Change the image source when the toggle is checked
+            doorOpen();
+            console.log(
+              "door is opennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+            );
+            doorUnlockedImage.style.display = "block";
+            doorLockedImage.style.display = "none";
+          } else {
+            // Change the image source back to the default when the toggle is unchecked
 
-              doorUnlockedImage.style.display = "none";
-              doorLockedImage.style.display = "block";
-            } else {
-              // Change the image source back to the default when the toggle is unchecked
-              doorOpen();
-              doorUnlockedImage.style.display = "block";
-              doorLockedImage.style.display = "none";
-            }
-          });
+            doorLock();
+            console.log(
+              "door is closeddddddddddddddddddddddddddddddddddddddddddddddd"
+            );
+
+            doorUnlockedImage.style.display = "none";
+            doorLockedImage.style.display = "block";
+          }
         }
 
         const toggleInput = document.getElementById("imageDoorLockToggle");
