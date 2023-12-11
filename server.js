@@ -7,8 +7,8 @@ const { urgentCall, urgentMessage, emergencyCall } = require("./call-sms.js");
 
 const app = express();
 const port = 4000;
-// const raspberryPiIpAddress = "http://10.44.22.15:3000";
-const raspberryPiIpAddress = "http://192.168.1.93:3000";
+const raspberryPiIpAddress = "http://your-ip-address:your-port";
+
 // Enable WebSocket support in Express
 const { getWss, applyTo } = expressWs(app);
 
